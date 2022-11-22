@@ -15,7 +15,6 @@
 	#include "library.h"
 	#include "functions.c"
 	
-
 /* Main Method:
 ============================================================== */
 	int main(void) {

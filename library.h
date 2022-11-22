@@ -5,20 +5,28 @@
 =================================================================================================== */
 	#include <stdio.h>
 	#include <stdlib.h>
+
+/* Structures:
+=================================================================================================== */
+	typedef struct Destino {
+		int verticeDest;
+		int peso;
+	} Destino;
+	
+	typedef struct Hash {
+		int index;
+		Destino *destino;
+	} Hash;
 	
 /* Prototypes:
 =================================================================================================== */
 	void menu(void);
 	void switchCode(int choice);
 	void buildArray(void);
-	void buildGraph(void);
+	void insertVertex(Hash *tabela, int vertexValue);
+	void buildGraph(int numV);
+	void insertEdge(Hash *tabela, int i, int vertice, int peso);
 
-/* Structures:
-=================================================================================================== */
-	typedef struct dado {
-		int hash;  // Primeiro elemento do par, que também esta na tabela.
-		int peso;  // Peso da arestas que liga os dois elementos do par.	
-		int v;     // Segundo elemento do par.
-	} Dado;
+
 
 #endif //LIBRARY_H

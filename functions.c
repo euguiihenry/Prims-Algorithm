@@ -4,7 +4,7 @@
 	
 /* Global Variables:
 =================================================================================================== */
-	Dado array[1];
+	Hash tabela[1];
 	int numV = 0;
 	int graph[1][1];
 	
@@ -18,7 +18,7 @@
 	        printf("\t\tMain Menu - Algoritmo de Prim\n\n");
 	        printf("\t============================================\n\n");
 	        printf("\t%c ESCOLHA A OPCAO DESEJADA:  \n\n", 26);
-	        printf("\t  1  %c   Inserir Grafo \n\n", 16);
+	        printf("\t  1  %c   Inserir Grafo (Gera Um Grafo Novo) \n\n", 16);
 	        printf("\t  2  %c   Gerar Arvore(s) do Tipo MST\n\n", 16);
 	        printf("\t  3  %c   Sobre o Algoritmo\n\n", 16);
 	        printf("\t  4  %c   Sair\n", 16);
@@ -46,7 +46,7 @@
 					
 				/* Obtendo Arestas e Seus Pesos (Construindo Grafo):
 				=================================================================================== */
-					buildGraph();
+					buildGraph(numV);
 					
 				break;
 				
@@ -103,29 +103,86 @@
 				printf("\t Insira o numero de elementos: ");
 				scanf("%i", &numV);
 				
-			/* Instanciando o Array:
+			/* Instanciando o Array (Resizing the table array):
 			======================================================================================= */
-				array[numV];
+				tabela[numV];
 				
 			/* Colocando os elementos no array (Começando de 1):
 			======================================================================================= */
+				printf("\n\t Elementos Inseridos:\n");
+				
 				for(i=1; i<=numV; i++) {
-					array->hash = i;
+					insertVertex(&tabela[i], i);
 				}
 				
 			/* Feedback no Terminal:
 			======================================================================================= */
-				printf("\t Vertices armazenados com sucesso");
+				printf("\n\t Vertices armazenados com sucesso.");
+		}
+		
+	/* Inserindo Elemento na Tabela Hash:
+	=============================================================================================== */
+		void insertVertex(Hash *tabela, int vertexValue) {
+			tabela->index = vertexValue;
+			printf("\t  > Elemento %i: %i \n", vertexValue, tabela->index);
 		}
 	
 	/* Construindo Grafo:
 	=============================================================================================== */
-		void buildGraph(void) {
-			int i;
+		void buildGraph(int numV) {
+			// teste:
+				//printf("Num de Vertices: %i", numV);
 			
-			/* Armazenar o numero de arestas para cada vertice do grafo:
+			/* Variaveis:
 			======================================================================================= */
+				/* Temporarias:
+				=================================================================================== */
+					int peso = 0;
+					int vertice = 0;
+					int i = 0;
+					int matriz[numV][numV];
+			
+			/* Requesitando as Arestas:
+			======================================================================================= */
+				printf("\n\n\t Insira as arestas e os pesos:\n");
 				
+				for(i=1; i<=(numV*numV); i++) {
+					int x=1;
+					
+					while(x != (numV-1)) {
+						printf("\n\t Com saida do vertice %i, insira o vertice de chega dessa aresta: ", i);
+						scanf("%i", &vertice);
+						
+						printf("\n\t Insira o peso dessa aresta: ");
+						scanf("%i", &peso);
+						
+						insertEdge(&tabela[i], i, vertice, peso);
+					}
+					
+				}
+				
+			/* Feedback no Terminal:
+			======================================================================================= */
+				printf("\n\t Arestas armazenados com sucesso.");
+				
+		}
+		
+	/* Construindo Grafo:
+	=============================================================================================== */
+		void insertEdge(Hash *tabela, int i, int vertice, int peso) {
+			/* Variavel de Auxilio:
+			======================================================================================= */
+				Destino *aresta = malloc(sizeof(Destino));
+			
+			/* Preenchendo:
+			======================================================================================= */
+				aresta->verticeDest = vertice;
+				aresta->peso = peso;
+				
+			/* Adicionando a Tabela:
+			======================================================================================= */
+				tabela->destino = aresta;
+				printf("\t > Elemento de Saida: %i \n\t > Peso: %i \n\t > Elemento de Chegada: %i \n", i, tabela->destino->peso, tabela->destino->verticeDest);
 		}
 
 /* Case 2:
